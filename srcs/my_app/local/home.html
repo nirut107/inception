@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=0.5, maximum-scale=1, user-scalable=no"
+    />
+    <title>My React-like App</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=0.5, maximum-scale=1, user-scalable=no"
+        />
+        <title>Typing Practice</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            max-height: 1000px;
+            box-sizing: border-box;
+          }
+          .container {
+            width: 100%;
+            max-width: 1500px;
+            max-height: 1000px;
+          }
+          .header {
+            text-align: center;
+            margin-bottom: 20px;
+          }
+         
+          .stat-box {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+          }
+
+          .stat-label {
+            margin: 20px;
+            width: 100%;
+            font-size: 24px;
+            color: #666;
+          }
+          .key:active,
+          .time.active {
+            color: red;
+          }
+          .word-display {
+            background-color: white;
+            padding: 20px;
+            font-size: 24px;
+            min-height: 100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #666;
+          }
+          .current-word {
+            font-size: 32px;
+            margin-bottom: 10px;
+          }
+          .next-Word {
+            font-size: 20px;
+            margin: 10px;
+          }
+          .typed-input {
+            font-size: 24px;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+          }
+          .keyboard {
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          }
+          .keyboard-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+          }
+          .key {
+            background: linear-gradient(145deg, #e0e0e0, #ffffff);
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+          }
+          .key:active,
+          .key.active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+          }
+          .key:active,
+          .key-lower.active {
+            color: #4caf50;
+            transform: translateY(3px);
+          }
+          .key:active,
+          .function-key.active {
+            color: #4caf50;
+            transform: translateY(3px);
+          }
+          .key:active,
+          .key-upper.active {
+            color: #4caf50;
+            transform: translateY(3px);
+          }
+          .key-upper {
+            font-size: 24px;
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            color: #666;
+          }
+          .neon-text {
+            font-size: 32px;
+            font-weight: 10;
+            font-family: "Arial", sans-serif;
+            color: rgb(2, 13, 13);
+          }
+          .word-play {
+            color: #666;
+          }
+
+          .highlight-correct::after {
+            content: "_";
+            position: absolute;
+            top: 3px;
+            color: rgb(0, 0, 0);
+            animation: blink 1s infinite;
+          }
+
+          @keyframes blink {
+            50% {
+              opacity: 0;
+            }
+          }
+
+          .key-lower {
+            font-size: 36px;
+          }
+          .key-1 {
+            width: 100px;
+            height: 100px;
+          }
+          .key-1-5 {
+            width: 150px;
+            height: 100px;
+          }
+          .key-2 {
+            width: 200px;
+            height: 100px;
+          }
+          .key-spacebar {
+            width: 600px;
+            height: 100px;
+          }
+          .language-selector {
+            font-size: 24px;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #1c1b1b;
+            cursor: pointer;
+          }
+          .highlight-correct {
+            position: relative;
+            color: rgb(108, 251, 108);
+          }
+          .highlight-correct1 {
+            position: relative;
+            color: rgb(108, 251, 108);
+          }
+          .key:active,
+          .word-play.active {
+            color: red;
+          }
+          .function-key {
+            font-size: 14px;
+          }
+          .start {
+            flex-direction: column;
+            background-color: white;
+            padding: 20px;
+            font-size: 24px;
+            min-height: 100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            margin-bottom: 20px;
+          }
+          .button {
+            margin-top: 10px;
+            font-size: 24px;
+            
+          }
+          .selecttime {
+            font-size: 20px;
+            margin: 5px;
+            padding: 3px;
+          }
+          .end {
+            flex-direction: column;
+            background-color: white;
+            padding: 20px;
+            font-size: 24px;
+            min-height: 100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #666;
+          }
+          @keyframes blink {
+            0%,
+            100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Typing Practice</h1>
+            <div id="lang"></div>
+            <select id="languageSelector" class="language-selector">
+              <option value="en">English</option>
+              <option value="th">ไทย</option>
+            </select>
+          </div>
+          <div id="start"></div>
+          <div id="stat"></div>
+          <div id="Text"></div>
+          <div id="keyshow"></div>
+        </div>
+        <script type="module" src="app.js"></script>
+      </body>
+    </html>
+  </body>
+</html>

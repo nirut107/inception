@@ -1,0 +1,40 @@
+[mysqld]
+# Security & User
+user = mysql
+
+# Networking & Connections
+port = 3306
+bind-address = 0.0.0.0  # Allow external connections (change if needed)
+socket = /run/mysqld/mysqld.sock
+
+# Data & Storage
+basedir = /usr
+datadir = /var/lib/mysql
+tmpdir = /tmp
+default-storage-engine = InnoDB  # Use InnoDB for better performance & reliability
+
+# Performance Optimization
+max_connections = 200  # Limit concurrent connections
+innodb_buffer_pool_size = 512M  # Adjust based on available RAM
+innodb_log_file_size = 128M  # Log file size (increase for heavy transactions)
+innodb_flush_log_at_trx_commit = 1  # Ensure data integrity
+innodb_flush_method = O_DIRECT  # Improve performance by reducing OS caching
+query_cache_size = 64M  # Cache queries to reduce database load
+thread_cache_size = 8  # Improve thread reuse
+tmp_table_size = 32M  # Increase temporary table size
+max_heap_table_size = 32M  # Limit memory usage for heap tables
+
+# Character Set (UTF-8 for full compatibility)
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+# Security & Logging
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql-slow.log
+long_query_time = 2  # Log queries that take more than 2 seconds
+log_error = /var/log/mysql-error.log
+log_bin = /var/lib/mysql/mysql-bin.log  # Enable binary logging (for backups/replication)
+expire_logs_days = 10  # Auto-delete old bin logs after 10 days
+
+# Prevent MySQL from running as root (extra security)
+secure-file-priv = /var/lib/mysql-files

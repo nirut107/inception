@@ -1,0 +1,103 @@
+version: "3.9"
+
+services:
+
+  mariadb:
+    build: ./mariaDB
+    container_name: mariadb
+    restart: always
+    networks:
+      - web_network
+    volumes:
+      - ./mariaDB/volumes:/var/lib/mysql
+    env_file:
+      - .env
+
+  wordpress:
+    container_name: wordpress
+    build: ./wordpress
+    depends_on:
+      - mariadb
+    restart: always
+    networks:
+      - web_network
+    volumes:
+      - ./wordpress/volumes:/var/www/html
+    ports:
+      - 9000:9000
+    env_file:
+      - .env
+  
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    volumes:
+      - ./wordpress/volumes:/var/www/html
+      - ./my_app/volumes:/var/www/myapp
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - wordpress
+      - my_app
+    networks:
+      - web_network
+
+  redis:
+    build: ./redis
+    container_name: redis
+    restart: always
+    networks:
+      - web_network
+    volumes:
+      - ./redis/volumes:/data
+    ports:
+      - "6379:6379"
+    
+  # ftp:
+  #   build: ./ftp
+  #   container_name: ftp
+  #   restart: always
+  #   network_mode: host
+  #   volumes:
+  #     - ./wordpress/volumes:/home/ftpuser
+  #   ports:
+  #     - "21:21"
+  #     - "21100-21110"
+  #   env_file:
+  #     - .env
+
+  my_app:
+    container_name: my_app
+    build: ./my_app
+    restart: always
+    networks:
+      - web_network
+    volumes:
+      - ./my_app/volumes:/var/www/html
+    env_file:
+      - .env
+
+
+volumes:
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/nsomrod/data/mariadb
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/nsomrod/data/wordpress
+
+
+networks:
+  web_network:
+    name: inception
+    driver: bridge
+  
